@@ -1,23 +1,213 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Spoon-Knife</title>
-  <LINK href="styles.css" rel="stylesheet" type="text/css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ColorSplash — Vivid, Modern, Playful</title>
+  <meta name="description" content="A colorful, modern, single‑file index.html template with gradients, glassmorphism, and smooth micro‑interactions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f1021; --bg2:#1b1c3a; --text:#f5f7ff; --muted:#c9cbe0; --card:#ffffff10;
+      --grad-1: linear-gradient(135deg,#7b5cff, #5ce1e6 40%, #ff8bd1 75%, #ffe36e);
+      --grad-2: linear-gradient(135deg,#00dbde,#fc00ff);
+      --grad-3: linear-gradient(135deg,#f7971e,#ffd200);
+      --glow: 0 0 30px #8a7dff55, 0 0 60px #5ce1e655;
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:'Inter',system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--text); background: radial-gradient(1200px 800px at 80% -10%, #321562 0%, transparent 60%),
+                 radial-gradient(900px 700px at -20% 30%, #0b4d53 0%, transparent 55%),
+                 radial-gradient(700px 700px at 110% 90%, #5a1a5f 0%, transparent 50%),
+                 linear-gradient(180deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+    .container{max-width:1100px;margin:0 auto; padding:0 20px}
+    header{position:sticky;top:0;backdrop-filter:saturate(1.4) blur(12px); background:#0f1021a6; border-bottom:1px solid #ffffff1a; z-index:20}
+    nav{display:flex; align-items:center; justify-content:space-between; height:70px}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
+    .logo{width:38px;height:38px;border-radius:12px; background:var(--grad-1); box-shadow:var(--glow)}
+    .nav-links{display:flex; gap:18px}
+    .nav-links a{color:var(--muted); text-decoration:none; font-weight:600; padding:10px 14px; border-radius:12px; border:1px solid transparent}
+    .nav-links a:hover{border-color:#ffffff2a; color:var(--text)}
+
+    .hero{position:relative; padding:92px 0 70px; text-align:center}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#ffffff10; border:1px solid #ffffff22; font-weight:600}
+    .badge .dot{width:8px;height:8px;border-radius:50%; background:conic-gradient(#5ce1e6,#7b5cff,#ff8bd1,#5ce1e6)}
+    h1{font-size:clamp(32px,7vw,64px); line-height:1.05; margin:16px 0; letter-spacing:-.5px}
+    .grad-text{background:var(--grad-1); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .subtitle{color:var(--muted); max-width:760px; margin:0 auto 28px; font-size:clamp(16px,2.5vw,20px)}
+    .cta{display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+    .btn{--pad:14px 18px; display:inline-flex; align-items:center; gap:10px; padding:var(--pad); border-radius:16px; border:1px solid #ffffff25; text-decoration:none; font-weight:800; letter-spacing:.2px; transition: transform .15s ease, box-shadow .2s ease, background .2s ease;}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--grad-2); color:#0b0412; box-shadow:0 10px 30px #fc00ff33}
+    .btn-ghost{background:#ffffff14; color:var(--text)}
+
+    .sparkle{position:absolute; inset: -120px -120px auto auto; width:300px; height:300px; background:radial-gradient(closest-side,#ffffff25,transparent 60%); filter:blur(20px); border-radius:50%; animation: float 6s ease-in-out infinite}
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+    .cards{display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:18px; margin:40px 0}
+    .card{background:var(--card); border:1px solid #ffffff2a; border-radius:var(--radius); padding:20px; position:relative; overflow:hidden}
+    .card:before{content:""; position:absolute; inset:-1px; background:conic-gradient(from 180deg at 50% 50%,#ffffff00, #7b5cff22, #5ce1e622, #ff8bd122, #ffe36e22, #ffffff00); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; padding:1px; border-radius:inherit}
+    .card h3{margin:8px 0 6px}
+    .card p{margin:0; color:var(--muted)}
+
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid #ffffff22; background:#ffffff10; font-weight:700; font-size:12px; letter-spacing:.3px}
+
+    .grid-showcase{display:grid; grid-template-columns: repeat(12, 1fr); gap:12px; margin:18px 0}
+    .tile{grid-column:span 4; background:var(--card); border:1px solid #ffffff26; border-radius:18px; height:140px; position:relative; overflow:hidden}
+    .tile.big{grid-column:span 8}
+    .tile .shine{position:absolute; inset:-100% -50% auto auto; width:220%; height:200%; background: linear-gradient(130deg,#ffffff06, #ffffff24 35%, #ffffff06 65%); transform: translateX(-60%) rotate(-12deg); animation: shine 6s linear infinite}
+    @keyframes shine{0%{transform:translateX(-60%) rotate(-12deg)}100%{transform:translateX(10%) rotate(-12deg)}}
+    .tile .label{position:absolute; bottom:10px; left:10px; font-weight:700; font-size:14px}
+
+    .section{padding:48px 0}
+    .section h2{font-size:clamp(22px,4vw,34px); margin:0 0 12px}
+    .muted{color:var(--muted)}
+
+    .footer{margin-top:40px; padding:28px 0 60px; color:#bfc2da; border-top:1px solid #ffffff1a}
+    .footer a{color:#e6e9ff; text-decoration:none}
+
+    /* Fancy animated gradient border around the hero CTA area */
+    .halo{position:relative; border-radius:20px; padding:14px}
+    .halo:before{content:""; position:absolute; inset:0; border-radius:inherit; padding:1px; background:conic-gradient(#7b5cff, #5ce1e6, #ff8bd1, #ffe36e, #7b5cff); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 8s linear infinite}
+    .halo > .inner{position:relative; background:#0f1021cc; border:1px solid #ffffff18; border-radius:16px; padding:18px}
+    @keyframes spin{to{transform:rotate(1turn)}}
+
+    /* Responsive tweaks */
+    @media (max-width: 720px){
+      .nav-links{display:none}
+      .tile{grid-column:span 12}
+      .tile.big{grid-column:span 12}
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <div class="container">
+      <nav aria-label="Main Navigation">
+        <div class="brand" aria-label="Brand Logo">
+          <div class="logo" role="img" aria-label="Colorful logo"></div>
+          <span>ColorSplash</span>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#about">About</a>
+          <a href="#contact" class="pill">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-<img src="forkit.gif" id="octocat" alt="" />
+  <main>
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="sparkle" aria-hidden="true"></div>
+      <span class="badge" role="note"><span class="dot"></span> New: Vivid single‑file template</span>
+      <h1 id="hero-title">Make it <span class="grad-text">bold, bright, beautiful</span>.</h1>
+      <p class="subtitle">A colorful, production‑ready <strong>index.html</strong> you can drop into any project. Crafted with glassmorphism, animated gradients, and accessible semantics.</p>
+      <div class="halo" role="group" aria-label="Primary actions">
+        <div class="inner cta">
+          <a class="btn btn-primary" href="#get-started" aria-label="Get started">✨ Get Started</a>
+          <a class="btn btn-ghost" href="#learn-more" aria-label="Learn more">▶ Learn More</a>
+        </div>
+      </div>
 
-<!-- Feel free to change this text here -->
-<p>
-  Fork me? Fork you, @octocat!
-</p>
-<p>
-  Sean made a change
-</p>
+      <div class="grid-showcase" id="learn-more">
+        <div class="tile big" aria-label="Showcase tile one"><div class="shine" aria-hidden="true"></div><span class="label">Animated shine</span></div>
+        <div class="tile" aria-label="Showcase tile two"><div class="shine" aria-hidden="true"></div><span class="label">Glass card</span></div>
+        <div class="tile" aria-label="Showcase tile three"><div class="shine" aria-hidden="true"></div><span class="label">Gradient glow</span></div>
+        <div class="tile" aria-label="Showcase tile four"><div class="shine" aria-hidden="true"></div><span class="label">Neon border</span></div>
+      </div>
+    </section>
 
+    <section id="features" class="section container" aria-labelledby="features-title">
+      <h2 id="features-title" class="grad-text">Features you’ll love</h2>
+      <p class="muted">Everything is in one file. Clean, accessible, and easy to customize.</p>
+      <div class="cards" role="list">
+        <article class="card" role="listitem">
+          <span class="pill">Gradient Magic</span>
+          <h3>Animated backgrounds</h3>
+          <p>Layered radial gradients with subtle motion create depth without heavy assets.</p>
+        </article>
+        <article class="card" role="listitem">
+          <span class="pill">Glass & Glow</span>
+          <h3>Modern glassmorphism</h3>
+          <p>Translucent cards, soft borders, and glows that feel premium and playful.</p>
+        </article>
+        <article class="card" role="listitem">
+          <span class="pill">A11y First</span>
+          <h3>Accessible by default</h3>
+          <p>Semantic HTML, proper contrast, focusable controls, and reduced motion friendly.</p>
+        </article>
+        <article class="card" role="listitem">
+          <span class="pill">Ready to Ship</span>
+          <h3>Single‑file simplicity</h3>
+          <p>Drop in as <code>index.html</code>, then tweak colors, radius, and gradients in <code>:root</code>.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="gallery" class="section container" aria-labelledby="gallery-title">
+      <h2 id="gallery-title">Color Gallery</h2>
+      <p class="muted">A few pre‑made gradient badges—copy, remix, enjoy.</p>
+      <div class="cards">
+        <div class="card" style="background:var(--grad-1)">
+          <strong>Sunset Pop</strong>
+          <p>Violet → Teal → Pink → Lemon</p>
+        </div>
+        <div class="card" style="background:var(--grad-2)">
+          <strong>Neon Dream</strong>
+          <p>Teal ↔ Magenta</p>
+        </div>
+        <div class="card" style="background:var(--grad-3)">
+          <strong>Golden Hour</strong>
+          <p>Orange → Gold</p>
+        </div>
+        <div class="card" style="background: linear-gradient(135deg,#36d1dc,#5b86e5)">
+          <strong>Cool Breeze</strong>
+          <p>Cyan → Blue</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section container" aria-labelledby="about-title">
+      <h2 id="about-title">About this template</h2>
+      <p class="muted">Built with pure HTML + CSS. No frameworks required. Designed for quick landing pages, hackathons, and colorful portfolios.</p>
+    </section>
+
+    <section id="contact" class="section container" aria-labelledby="contact-title">
+      <h2 id="contact-title" class="grad-text">Say hello</h2>
+      <p class="muted">Fork it, remix it, or use it as a starting point for your own dazzling site.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#" onclick="alert('Thanks for trying ColorSplash!')">Contact Me</a>
+        <a class="btn btn-ghost" href="#top">Back to Top ↑</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container" role="contentinfo">
+      <small>© <span id="year"></span> ColorSplash. Built with ♥ and gradients.</small>
+    </div>
+  </footer>
+
+  <script>
+    // Update year automatically
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Respect reduced motion
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(prefersReduced.matches){
+      for(const el of document.querySelectorAll('.sparkle, .tile .shine')){
+        el.style.animation = 'none';
+      }
+    }
+  </script>
 </body>
 </html>
